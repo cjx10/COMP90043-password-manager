@@ -1,5 +1,8 @@
 import argparse
 from os.path import exists
+import secrets
+import string
+import random
 
 VAULT_FILE_NAME = "pv"
 
@@ -72,11 +75,54 @@ def search(vault_file=None):
         items = record.split(",")
         print(items[1][:-len(url)] + " : " + items[2][:-len(url)-1])
 
+def generatePW():
+    alphabet = string.ascii_letters
+    number = string.digits
+    special_chars = string.punctuation
+
+    pool = alphabet + number + special_chars
+
+    pwd_length = 12
+
+    while True:
+        pwd = ""
+        for i in range(pwd_length):
+            pwd += "".join(secrets.choice(pool))
+
+        if(any(char in special_chars for char in pwd) and any(char in number for char in pwd)):
+            break;
+
+    print("Your password suggestion is: " + pwd)
+
+def generatePW2():
+    petName, favTeacher, favCity = "","",""
+    companyID, telephone, birthday = 0,0,0
+    favEmoji = ""
+
+    charPool = []
+    numPool = []
+
+    petName, favTeacher, favCity = input("What is your first petname, name of your favourite teacher and your favourite city?").split(" ")
+    companyID, telephone, birthday = input("What is your companyID, a telephone number in your mind, and a birthday in your mind?").split(" ")
+    favEmoji = input("What is your favorite emoji? ")
+
+    charPool.extend([petName, favTeacher, favCity])
+    numPool.extend([companyID, telephone, birthday])
+    #print(charPool)
+    #print(numPool)
+
+    suggestion = []
+
+    for i in range(5):
+        charPool_index, numPool_index = random.randint(0,2), random.randint(0,2)
+        suggestion = [charPool[charPool_index], numPool[numPool_index],favEmoji]
+        print("".join(suggestion))
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("operation", choices=["c", "a", "l"],
-                        help="[c]reate new password vault, [a]dd new record, [l]ookup record")
+    parser.add_argument("operation", choices=["c", "a", "l", "g", "ag"],
+                        help="[c]reate new password vault, [a]dd new record, [l]ookup record, [g]enerate password, [a]dvanced [g]enerate password")
     parser.add_argument("-f", "--file", help="Password vault file", default="pv")
     args = parser.parse_args()
     VAULT_FILE_NAME = args.file
@@ -87,3 +133,7 @@ if __name__ == '__main__':
         add()
     if args.operation == "l":
         search()
+    if args.operation == "g":
+        generatePW()
+    if args.operation == "ag":
+        generatePW2()
