@@ -75,6 +75,7 @@ def search(vault_file=None):
         items = record.split(",")
         print(items[1][:-len(url)] + " : " + items[2][:-len(url)-1])
 
+## basic pseudorandom password generation
 def generatePW():
     alphabet = string.ascii_letters
     number = string.digits
@@ -94,6 +95,8 @@ def generatePW():
 
     print("Your password suggestion is: " + pwd)
 
+
+## our proposed password generation function, based on user's profile
 def generatePW2():
     petName, favTeacher, favCity = "","",""
     companyID, telephone, birthday = 0,0,0
@@ -116,6 +119,7 @@ def generatePW2():
     for i in range(5):
         charPool_index, numPool_index = random.randint(0,2), random.randint(0,2)
         suggestion = [charPool[charPool_index], numPool[numPool_index],favEmoji]
+        random.shuffle(suggestion)
         print("".join(suggestion))
 
 
