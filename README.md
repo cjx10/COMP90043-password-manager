@@ -7,5 +7,5 @@ Password manager implementation for COMP90043 research project
 Operations supported:
 [c]reate new password vault, [a]dd new record, [l]ookup record, [g]enerate password, [ag]advanced generate password.
 
-Use `-f` or `--file` flag to specify password vault file location.
+Use `-f` or `--file` flag to specify password vault file location, or default location `./pv` is used.
 Use `-h` or `--help` for detailed usage.
