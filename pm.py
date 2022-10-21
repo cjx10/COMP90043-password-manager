@@ -13,7 +13,7 @@ def create():
     try:
         open(VAULT_FILE_NAME, mode="x").close()
     except FileExistsError:
-        print("Password vault already created")
+        print("Password vault already created, use [a] or [l] to start using it.")
         return
 
     vault_file = File(VAULT_FILE_NAME)
@@ -44,7 +44,7 @@ def create():
 
 def add():
     if not os.path.isfile(VAULT_FILE_NAME):
-        print("Password vault not exist, please check.")
+        print("Password vault not exist, please check or create one with [c] first.")
         return
 
     vault_file = File(VAULT_FILE_NAME)
@@ -70,7 +70,7 @@ def add():
 
 def search():
     if not os.path.isfile(VAULT_FILE_NAME):
-        print("Password vault not exist, please check.")
+        print("Password vault not exist, please check or create one with [c] first.")
         return
 
     vault_file = File(VAULT_FILE_NAME)
